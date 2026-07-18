@@ -1,0 +1,45 @@
+# BTC Spot Bot — systemd 服务 (裸机部署)
+# 安装: sudo cp deploy/btc-bot.service /etc/systemd/system/
+#       sudo systemctl daemon-reload
+#       sudo systemctl enable --now btc-bot
+# 管理: sudo systemctl {start|stop|restart|status} btc-bot
+# 日志: sudo journalctl -u btc-bot -f
+[Unit]
+Description=BTC Spot Bot V1.1 — Edge Score Multi-Factor Strategy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=botuser
+Group=botuser
+WorkingDirectory=/opt/btc-spot-bot
+Environment="PYTHONUNBUFFERED=1"
+Environment="TZ=Asia/Shanghai"
+EnvironmentFile=/opt/btc-spot-bot/.env
+ExecStart=/usr/bin/python3.11 main.py
+ExecStop=/bin/kill -SIGINT $MAINPID
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=btc-bot
+
+# 安全加固
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/opt/btc-spot-bot/logs /opt/btc-spot-bot/data
+ReadOnlyPaths=/opt/btc-spot-bot/config
+
+# 资源限制
+MemoryMax=512M
+CPUQuota=100%
+
+# 启动超时
+TimeoutStartSec=30
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target

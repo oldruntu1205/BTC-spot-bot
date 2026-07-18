@@ -1,0 +1,83 @@
+# BTC Spot Bot — V2 Edge Score 多因子策略
+# 策略: Edge Score (5因子) 买入 + USDⓈ-M 永续合约动态对冲
+# 优先级: 环境变量 > 此 YAML > 默认值
+
+exchange:
+  name: binance
+  testnet: true
+  futures_testnet: true
+
+strategy:
+  symbol: BTCUSDT
+  timeframe: 5m
+  order_type: LIMIT
+  trade_quantity: 0.001
+
+# Edge Score 5因子配置
+edge:
+  ob_imbalance_weight: 0.30
+  vwap_deviation_weight: 0.20
+  trade_flow_weight: 0.20
+  momentum_weight: 0.15
+  volatility_filter_weight: 0.15
+  entry_threshold: 70
+  exit_threshold: 40
+  ob_depth_levels: 10
+  vwap_window: 20
+  trade_flow_window: 50
+  atr_period: 14
+
+# (保留兼容旧 spread 模块)
+spread:
+  lookback_window: 100
+  entry_zscore: 2.0
+  exit_zscore: 0.5
+  min_spread_bps: 1.0
+  min_expected_return_bps: 1.0
+
+# USDⓈ-M 永续合约对冲
+futures:
+  enabled: false          # 默认关闭
+  testnet: true
+  leverage: 1
+  margin_type: ISOLATED
+  base_hedge_ratio: 0.9
+
+# 对冲触发参数 (保留兼容)
+hedge:
+  enabled: true
+  hedge_ratio: 1.0
+  hedge_threshold_bps: 50.0
+  unwind_threshold_bps: 25.0
+
+# 增强风控
+risk:
+  max_position_size: 0.01
+  max_net_exposure: 0.005
+  max_drawdown_pct: 0.05
+  daily_loss_limit: 100.0
+  order_timeout: 120
+  max_slippage_bps: 5
+  max_concurrent_orders: 3
+  min_order_value: 10.0
+  # 新增风控
+  single_trade_risk_pct: 0.5
+  max_position_pct: 20.0
+  daily_loss_pct: 2.0
+  consecutive_loss_limit: 3
+  pause_minutes: 30
+  max_hold_minutes: 45
+  profit_target_pct: 0.4
+  requote_timeout: 90
+
+benchmark:
+  historical_median_return_pct: 13.19
+
+logging:
+  level: INFO
+  file: logs/bot.log
+  rotation: "1 day"
+  retention: "30 days"
+
+database:
+  path: data/trading.db

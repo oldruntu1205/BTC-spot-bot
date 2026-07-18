@@ -1,0 +1,36 @@
+# BTC Spot Bot V1.1 — Docker Compose 编排
+# 启动: docker compose up -d
+# 停止: docker compose down
+# 日志: docker compose logs -f
+version: "3.8"
+
+services:
+  bot:
+    build: .
+    container_name: btc-spot-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      # 持久化日志和数据库
+      - ./logs:/app/logs
+      - ./data:/app/data
+      # 配置文件（只读）
+      - ./config/settings.yaml:/app/config/settings.yaml:ro
+    environment:
+      - TZ=Asia/Shanghai
+      - PYTHONUNBUFFERED=1
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    # 资源限制（防止 OOM）
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "1.0"
+        reservations:
+          memory: 128M
+          cpus: "0.25"
