@@ -3,60 +3,94 @@
 Python + Binance API Automated Trading Bot
 VPS-Ready · 24/7 Execution · Institutional-Grade Structure
 
-A production-oriented crypto trading bot engineered for BTCUSDT spot trading​ on Binance.
+This version implements:
 
-It specializes in order-book spread arbitrage, executing strictly via limit orders​ with robust risk controls and full trade lifecycle management.
+Automatic BTCUSDT market data fetching
 
-Key Features
+Automatic 5‑minute arbitrage signal calculation
 
-Market Data: Real-time BTCUSDT data streaming via official Binance SDK
-Signal Engine: 5-minute statistical arbitrage signal computation
-Order Execution: Pure limit-order logic (no market orders)
-Order Lifecycle: Automatic placement, timeout-based cancellation, and cleanup
-Risk Stack: Hard-coded safeguards against overexposure and abnormal losses
-Observability: Structured trade logs for post-trade analysis and debugging
+Automatic limit order placement
 
-Configuration         Overview
-Component	          Specification
-Market                BTCUSDT (Spot)
-Timeframe       	    5 Minutes
-Order Type     	    Limit Orders Only
-Core Strategy	       Order Book Spread Arbitrage
-Entry Logic	          Statistical edge detection on bid/ask imbalance
-Hedging	             Directional risk offset
-Max Position   	   ✅ Configurable cap
-Max Drawdown	      ✅ Hard limit enforced
-Daily Stop-Loss	   ✅ Auto shutdown trigger
-Timeout Handling	   ✅ Automatic order cancellation
-Slippage Control	   ✅ Execution guardrails
+Automatic order cancellation on timeout
+
+Built‑in take‑profit and stop‑loss
+
+Comprehensive trade logging
+
+Bot Configuration
+
+Market: BTC Spot (BTCUSDT)
+
+Timeframe: 5 minutes
+
+Order Type: Limit orders only
+
+Strategy: Order book spread arbitrage
+
+Entry Logic: Places orders only on the statistically favorable side
+
+Hedging: Directional risk hedging
+
+Risk Management:
+
+Maximum position size
+
+Maximum drawdown limit
+
+Daily loss cap
+
+Timeout‑based order cancellation
+
+Slippage control
+
 
 What’s Included
 
-✅ TradingView Pine Script​ – Strategy backtesting template
-✅ Python Trading Bot​ – Official Binance API integration
-✅ CCXT Version​ – Exchange-agnostic implementation
-✅ Hummingbot Strategy​ – Market-making module
-✅ Freqtrade Strategy​ – Backtesting & live deployment
-✅ Docker Support​ – One-command containerized deployment
-✅ VPS Automation​ – Systemd / cron-ready run scripts
-✅ AI Optimizer​ – Parameter tuning via machine learning heuristics
+✅TradingView Pine Script (strategy backtesting)
+
+✅Python automated trading bot (Binance API)
+
+✅CCXT‑compatible version
+
+✅Hummingbot strategy module
+
+✅Freqtrade strategy module
+
+✅Docker one‑click deployment
+
+✅VPS auto‑run scripts
+
+✅AI‑powered parameter auto‑optimization module
+
 
 Code Quality & Compliance
 
-✅ Built on official Binance SDK
-✅ Fully runnable with minimal setup
-✅ Strict type annotations​ (PEP 484)
-✅ Extensive Chinese inline documentation​
-✅ Enterprise-grade directory layout​
-✅ Zero usage of deprecated APIs
-✅ Modular design — every component is independently testable
+✅ Built on the official Binance SDK
+
+✅ Production‑ready and runnable
+
+✅ Full type annotations
+
+✅ Extensive Chinese comments
+
+✅ Enterprise‑grade project structure
+
+✅ No deprecated API usage
+
+✅ Each module is independently testable
 
 Quick Start (Preview)
+
 bash
+
 git clone https://github.com/oldruntu1205/btc-arbitrage-bot.git
+
 cd btc-arbitrage-bot
+
 cp config.example.yaml config.yaml
+
 docker compose up -d
+
 
 ⚠️ Disclaimer: For educational and research purposes only. Use at your own risk.
 
