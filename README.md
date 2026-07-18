@@ -16,19 +16,19 @@ Order Lifecycle: Automatic placement, timeout-based cancellation, and cleanup
 Risk Stack: Hard-coded safeguards against overexposure and abnormal losses
 Observability: Structured trade logs for post-trade analysis and debugging
 
-Configuration     Overview
-Component	      Specification
-Market         	BTCUSDT (Spot)
-Timeframe       	5 Minutes
-Order Type     	Limit Orders Only
-Core Strategy	   Order Book Spread Arbitrage
-Entry Logic	      Statistical edge detection on bid/ask imbalance
-Hedging	         Directional risk offset
-Max Position   	✅ Configurable cap
-Max Drawdown	   ✅ Hard limit enforced
-Daily Stop-Loss	✅ Auto shutdown trigger
-Timeout Handling	✅ Automatic order cancellation
-Slippage Control	✅ Execution guardrails
+Configuration         Overview
+Component	          Specification
+Market                BTCUSDT (Spot)
+Timeframe       	    5 Minutes
+Order Type     	    Limit Orders Only
+Core Strategy	       Order Book Spread Arbitrage
+Entry Logic	          Statistical edge detection on bid/ask imbalance
+Hedging	             Directional risk offset
+Max Position   	   ✅ Configurable cap
+Max Drawdown	      ✅ Hard limit enforced
+Daily Stop-Loss	   ✅ Auto shutdown trigger
+Timeout Handling	   ✅ Automatic order cancellation
+Slippage Control	   ✅ Execution guardrails
 
 What’s Included
 
